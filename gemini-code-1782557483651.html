@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Kiểm Tra Giao Tiếp Anh Ngữ - Ms Lê Hằng English</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Quicksand:wght=500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #8854C0;
+            --secondary-color: #FDCB6E;
+            --accent-color: #00C9A7;
+            --correct-color: #00D26A;
+            --wrong-color: #FF4757;
+            --text-dark: #2D3436;
+            --card-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', 'Nunito', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #8854C0, #FDCB6E, #00C9A7, #FF7675);
+            background-size: 400% 400%;
+            animation: gradientMove 12s ease infinite;
+            position: relative;
+            padding: 20px 10px;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            opacity: 0.15;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M12 12l2 2-2 2-2-2zm20 8c2 0 3-1 3-3s-1-3-3-3-3 1-3 3 1 3 3 3zm15 5l2 3 3 2-3 2-2 3-2-3-3-2 3-2zm-6 20c1.5 0 2.5-1 2.5-2.5S32.5 30 31 30s-2.5 1-2.5 2.5 1 2.5 2.5 2.5zM10 45l2 2-2 2-2-2z'/%3E%3Ccircle cx='50' cy='10' r='2'/%3E%3Ccircle cx='10' cy='50' r='3'/%3E%3C/g%3E%3C/svg%3E");
+            animation: floatingPattern 30s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes floatingPattern {
+            from { background-position: 0 0; }
+            to { background-position: 600px 600px; }
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.92);
+            padding: 15px;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            box-shadow: 0 6px 0 rgba(0,0,0,0.1);
+        }
+
+        header h2 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            font-weight: 900;
+        }
+
+        .alert-box {
+            background: #FFEAA7;
+            border: 3px solid #FDCB6E;
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 0 #E17055;
+            text-align: center;
+            font-weight: 700;
+            line-height: 1.6;
+        }
+
+        .alert-title {
+            color: #D63031;
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+            display: block;
+            font-weight: 900;
+        }
+
+        .section-title {
+            background: #FF7675;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 18px;
+            margin: 30px 0 15px 0;
+            display: inline-block;
+            font-weight: 900;
+            box-shadow: 0 4px 0 #D63031;
+            font-size: 1.15rem;
+        }
+
+        .quiz-card {
+            background: var(--card-bg);
+            border-radius: 22px;
+            padding: 24px;
+            margin-bottom: 22px;
+            box-shadow: 0 8px 0 rgba(0,0,0,0.08);
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            line-height: 1.6;
+            color: #2D3436;
+            background: #F1F2F6;
+            padding: 15px;
+            border-radius: 14px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 15px;
+            padding: 14px 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: left;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 4px 0 #E2E8F0;
+            transition: transform 0.1s ease, background-color 0.2s ease;
+            color: #4A5568;
+        }
+
+        .option-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #CBD5E1;
+            background-color: #F8FAFC;
+        }
+
+        .option-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #CBD5E1;
+        }
+
+        .option-btn.correct {
+            background-color: var(--correct-color) !important;
+            color: white !important;
+            border-color: #00B359 !important;
+            box-shadow: 0 4px 0 #00803F !important;
+        }
+
+        .option-btn.wrong {
+            background-color: var(--wrong-color) !important;
+            color: white !important;
+            border-color: #E11D48 !important;
+            box-shadow: 0 4px 0 #9F1239 !important;
+        }
+
+        .option-btn.disabled {
+            pointer-events: none;
+        }
+
+        .explanation-box {
+            margin-top: 18px;
+            background: #F8FAFC;
+            border-left: 6px solid var(--accent-color);
+            border-radius: 0 15px 15px 0;
+            padding: 18px;
+            font-size: 0.98rem;
+            line-height: 1.6;
+            display: none;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+        }
+
+        .explanation-box.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .exp-section {
+            margin-bottom: 10px;
+        }
+
+        .exp-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .exp-title {
+            font-weight: 900;
+            color: #1E293B;
+            border-bottom: 1px dashed #CBD5E1;
+            padding-bottom: 3px;
+            margin-bottom: 5px;
+        }
+
+        .exp-highlight {
+            color: #2563EB;
+            font-weight: 700;
+            background: #EFF6FF;
+            padding: 4px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 2px;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+        .shake { animation: shake 0.4s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .submit-container {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .btn-submit {
+            background: #FF7675;
+            color: white;
+            border: none;
+            padding: 16px 55px;
+            font-size: 1.4rem;
+            font-weight: 900;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #D63031;
+            transition: all 0.1s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #D63031;
+        }
+
+        .btn-submit:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #D63031;
+        }
+
+        .result-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.55);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+
+        .result-content {
+            background: white;
+            border-radius: 25px;
+            padding: 35px;
+            max-width: 500px;
+            width: 92%;
+            text-align: center;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .result-score {
+            font-size: 3.2rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .result-comment {
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #334155;
+            white-space: pre-line;
+        }
+
+        .btn-close-result {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #00A387;
+        }
+
+        #confetti-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="container">
+        <header>
+            <h2>Bài Tập Tình Huống Giao Tiếp Tiếng Anh - Biên soạn: Ms Lê Hằng English</h2>
+        </header>
+
+        <div class="alert-box">
+            <span class="alert-title">💡 PHƯƠNG PHÁP HỌC GIAO TIẾP 💡</span>
+            Giao tiếp tiếng Anh không chỉ là dịch từ mà là phản xạ phù hợp với ngữ cảnh xã hội, cảm xúc của người đối diện.<br>
+            Khi con chọn xong đáp án, hãy đọc thật kỹ phần <strong>Phân Tích Ngữ Cảnh</strong> bên dưới để hiểu sâu tại sao các câu khác lại bị loại trừ nhé!
+        </div>
+
+        <div id="quiz-container">
+            <!-- Dữ liệu câu hỏi được tự động tải bằng JS ở dưới -->
+        </div>
+
+        <div class="submit-container">
+            <button type="button" class="btn-submit" onclick="gradeEntireQuiz()">NỘP BÀI THI</button>
+        </div>
+    </div>
+
+    <div class="result-overlay" id="result-modal">
+        <div class="result-content">
+            <div class="result-score" id="score-text">0/0</div>
+            <div class="result-comment" id="comment-text"></div>
+            <button class="btn-close-result" onclick="closeResultModal()">Xem lại đáp án chi tiết</button>
+        </div>
+    </div>
+
+    <script>
+        // --- WEB AUDIO API CHO HỆ THỐNG ÂM THANH SỐNG ĐỘNG ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            if (type === 'correct') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.08); // E5
+                osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.16); // G5
+                gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.005, audioCtx.currentTime + 0.4);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.4);
+            } else {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(140, audioCtx.currentTime);
+                osc.frequency.linearRampToValueAtTime(90, audioCtx.currentTime + 0.22);
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.005, audioCtx.currentTime + 0.25);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.25);
+            }
+        }
+
+        // --- CƠ SỞ DỮ LIỆU TOÀN VẸN 100% CÁC CÂU HỎI GIAO TIẾP ---
+        const quizData = [
+            {
+                id: 1, section: "Exercise 1: Option that best completes each of the following exchanges.",
+                question: "1. Phong: \"I will show you some of my photos when I was a child.\"<br>Tom: “_______”",
+                options: [
+                    { text: "A. No problem.", isCorrect: false },
+                    { text: "B. I have some pictures too.", isCorrect: false },
+                    { text: "C. How interesting. I’ll love it.", isCorrect: true },
+                    { text: "D. I’m sorry to hear that.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Phong: \"Tớ sẽ cho cậu xem vài bức ảnh của tớ hồi còn nhỏ nhé.\"<br>Tom: \"Thú vị thế! Tớ sẽ thích lắm đây.\"",
+                    reason: "Khi một người đưa ra đề nghị chia sẻ một điều thú vị cá nhân mang tính kỷ niệm (cho xem ảnh hồi nhỏ), người nghe cần thể hiện sự hào hứng, đón nhận lịch sự. Cụm từ 'How interesting. I’ll love it' phản xạ hoàn hảo cảm xúc tích cực đó.",
+                    wrongReason: "A dùng khi đồng ý giúp đỡ; B mang tính so bì, khoe khoang cắt đứt câu chuyện; D dùng khi nghe tin buồn, không hợp ngữ cảnh vui vẻ."
+                }
+            },
+            {
+                id: 2, section: "Exercise 1: Option that best completes each of the following exchanges.",
+                question: "2. Mai: \"I promise I’ll do the task to my best.\"<br>Sue: “_______”",
+                options: [
+                    { text: "A. You must do your part.", isCorrect: false },
+                    { text: "B. Great. I appreciate it.", isCorrect: true },
+                    { text: "C. Everybody has his own task.", isCorrect: false },
+                    { text: "D. That’s what I do.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Mai: \"Tớ hứa là tớ sẽ làm nhiệm vụ này một cách tốt nhất có thể.\"<br>Sue: \"Tuyệt vời. Tớ rất trân trọng điều đó.\"",
+                    reason: "Khi ai đó đưa ra một lời hứa chắc nịch, đầy trách nhiệm và thiện chí ('do the task to my best'), phản xạ lịch sự và tạo động lực nhất của người nghe là khen ngợi ('Great') và bày tỏ sự trân trọng trân quý tinh thần đó ('I appreciate it').",
+                    wrongReason: "A và C mang sắc thái ra lệnh, lạnh lùng, áp đặt tạo khoảng cách; D tự nói về bản thân không ăn nhập lời hứa của Mai."
+                }
+            },
+            {
+                id: 3, section: "Exercise 1: Option that best completes each of the following exchanges.",
+                question: "3. Bill: \"Do you mind lending me this book for three days?\"<br>Nam: “_______” I need it for my project.",
+                options: [
+                    { text: "A. Sorry I don’t know.", isCorrect: false },
+                    { text: "B. This book's very interesting.", isCorrect: false },
+                    { text: "C. Sorry, I can't.", isCorrect: true },
+                    { text: "D. Please remember to return it on time.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Bill: \"Cậu có phiền cho tớ mượn cuốn sách này trong ba ngày không?\"<br>Nam: \"Xin lỗi, tớ không thể.\" Tớ đang cần nó cho dự án của mình.",
+                    reason: "<b>Lưu ý cực quan trọng:</b> Mệnh đề đứng sau chỗ trống khẳng định lý do: 'I need it for my project' (Tớ đang cần nó cho dự án của tớ). Điều này có nghĩa Nam bắt buộc phải <b>từ chối</b> lời mượn sách của Bill. Do đó, câu từ chối lịch sự phù hợp với ngữ cảnh giữ lại sách là 'Sorry, I can't' (hoặc tương đương sắc thái khước từ).",
+                    wrongReason: "A sai logic phản xạ; B lảng tránh câu hỏi; D là đồng ý cho mượn, mâu thuẫn hoàn toàn với câu giải thích cần giữ sách ở vế sau."
+                }
+            },
+            {
+                id: 4, section: "Exercise 1: Option that best completes each of the following exchanges.",
+                question: "4. Cathy: “_______”<br>Lan: \"I used to go flying kites.\"",
+                options: [
+                    { text: "A. What’s a dike?", isCorrect: false },
+                    { text: "B. I don’t play traditional games.", isCorrect: false },
+                    { text: "C. What did you do in your free time then?", isCorrect: true },
+                    { text: "D. There’s a colourful kite here.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Cathy: \"Hồi đó cậu thường làm gì vào thời gian rảnh rỗi vậy?\"<br>Lan: \"Tớ từng thường đi thả diều.\"",
+                    reason: "Câu trả lời của Lan chứa cấu trúc 'used to + V' (từng làm gì trong quá khứ) chỉ thói quen cũ và hoạt động thả diều 'flying kites'. Câu hỏi của Cathy phải khai thác về thói quen hành động trong quá khứ 'in your free time then' (vào thời gian rảnh lúc bấy giờ) để tạo mạch hội thoại logic.",
+                    wrongReason: "A hỏi định nghĩa con đê; B trần thuật cá nhân không có tính chất câu hỏi; D cảm thán về chiếc diều hiện tại."
+                }
+            },
+            {
+                id: 5, section: "Exercise 1: Option that best completes each of the following exchanges.",
+                question: "5. Anna: \"In the past, most people went to work by bike.\"<br>Luk: “_______”",
+                options: [
+                    { text: "A. Did they?", isCorrect: true },
+                    { text: "B. They love cycling!", isCorrect: false },
+                    { text: "C. Bicycles were expensive then.", isCorrect: false },
+                    { text: "D. That’s my favourite bike.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Anna: \"Ngày xưa, hầu hết mọi người đi làm bằng xe đạp đấy.\"<br>Luk: \"Thật thế hả?\"",
+                    reason: "Khi nghe một người kể về một sự thật, một tập tục hoặc thói quen phổ biến trong lịch sử quá khứ mà mình thấy thú vị hoặc muốn xác nhận biểu đạt sự chú ý, ta dùng câu hỏi đuôi ngắn phản hồi 'Did they?' (Họ đã từng thế sao? / Thật vậy ư?) để duy trì mạch chuyện.",
+                    wrongReason: "B chia hiện tại đơn sai trục thời gian quá khứ; C đưa dữ kiện không liên quan trực tiếp; D nói về sở thích xe đạp hiện tại của cá nhân."
+                }
+            },
+            {
+                id: 6, section: "Exercise 1: Option that best completes each of the following exchanges.",
+                question: "6. Isla: “Dao, how has the way Vietnamese families live together changed?”<br>Dao: “_______”",
+                options: [
+                    { text: "A. Cost of living in the city is higher now.", isCorrect: false },
+                    { text: "7. Still, many people can't own their own homes.", isCorrect: false },
+                    { text: "C. Nuclear families are becoming more common.", isCorrect: true },
+                    { text: "D. There is less emphasis on respecting elders.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Isla: \"Đào ơi, cách thức các gia đình Việt Nam chung sống cùng nhau đã thay đổi như thế nào vậy?\"<br>Đào: \"Các gia đình hạt nhân đang trở nên phổ biến hơn.\"",
+                    reason: "Câu hỏi của Isla tập trung vào 'the way Vietnamese families live together' (cách các gia đình sống chung - khía cạnh cấu trúc gia đình). Câu trả lời C chỉ ra xu hướng xã hội học chuẩn xác: 'Nuclear families' (gia đình hạt nhân 2 thế hệ) đang thay thế mô hình đại gia đình sống chung ngày xưa.",
+                    wrongReason: "A nói về chi phí sinh hoạt; B nói về việc sở hữu nhà đất; D sai lệch về mặt giá trị văn hóa cốt lõi kính lão đắc thọ của Việt Nam."
+                }
+            },
+            {
+                id: 7, section: "Exercise 1: Option that best completes each of the following exchanges.",
+                question: "7. Kelvin: “There are so many motorbikes in this old video!”<br>Ngan: “_______”",
+                options: [
+                    { text: "A. Everyone uses bicycles for health reasons.", isCorrect: false },
+                    { text: "B. Cars are popular and there’s less traffic.", isCorrect: false },
+                    { text: "C. Public transportation is the cheapest way to travel.", isCorrect: false },
+                    { text: "D. Yes, motorbikes are still the main way to get around.", isCorrect: true }
+                ],
+                explanation: {
+                    translation: "Kelvin: \"Có nhiều xe máy trong đoạn video cũ này quá!\"<br>Ngân: \"Đúng vậy, xe máy cho đến nay vẫn là phương tiện di chuyển chính đấy.\"",
+                    reason: "Kelvin trầm trồ về số lượng xe máy 'so many motorbikes' xuất hiện trong thước phim tư liệu cũ. Ngân đồng tình 'Yes' và kết nối thực tế lịch sử với hiện tại: 'motorbikes are still the main way to get around' (xe máy vẫn là cách đi lại chủ đạo), tạo sự thống nhất chủ đề thảo luận phương tiện.",
+                    wrongReason: "A, B, C đều tổ chức thông tin lệch sang phương tiện khác (xe đạp, ô tô, xe công cộng) không phản hồi trực diện từ khóa motorbikes của Kelvin."
+                }
+            },
+            {
+                id: 8, section: "Exercise 1: Option that best completes each of the following exchanges.",
+                question: "8. Albert: “Minh, what has changed the most about Vietnamese cuisine?”<br>Minh: “_______”",
+                options: [
+                    { text: "A. Fast food chains and international restaurants are popping up everywhere.", isCorrect: true },
+                    { text: "B. I don’t like fast food, so I won’t go to the restaurant.", isCorrect: false },
+                    { text: "C. There are few options for fresh ingredients in fast food restaurants.", isCorrect: false },
+                    { text: "D. People choose banh mi for breakfast as it’s healthy and convenient.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Albert: \"Minh ơi, điều gì đã thay đổi nhiều nhất về ẩm thực Việt Nam vậy?\"<br>Minh: \"Các chuỗi thức ăn nhanh và nhà hàng quốc tế đang mọc lên khắp mọi nơi.\"",
+                    reason: "Albert đặt câu hỏi về 'what has changed the most' (điều gì biến đổi thay đổi mạnh mẽ nhất). Để phản ánh sự thay đổi hiện đại hóa toàn cầu, câu trả lời chỉ ra sự bùng nổ của đồ ăn nhanh và ẩm thực quốc tế xâm nhập thị trường là logic nhất.",
+                    wrongReason: "A (gốc) khẳng định giữ nguyên cơm nhà thì không thể hiện sự biến đổi; B nói sở thích cá nhân đơn lẻ; D nói về bánh mì - món ăn đã có truyền thống lâu đời, không lột tả được xu hướng đổi mới mang tính vĩ mô."
+                }
+            },
+            {
+                id: 9, section: "Exercise 1: Option that best completes each of the following exchanges.",
+                question: "9. Michael: “Hoa, what was the typical pace of life in rural Vietnam?”<br>Hoa: “_______”",
+                options: [
+                    { text: "A. Life was fast-paced with many deadlines to meet.", isCorrect: false },
+                    { text: "B. Our neighbors were more focused on leisure activities.", isCorrect: false },
+                    { text: "C. Life revolved around farming and a slower pace.", isCorrect: true },
+                    { text: "D. City life influenced most aspects of daily life.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Michael: \"Hoa ơi, nhịp sống điển hình ở vùng nông thôn Việt Nam ngày xưa như thế nào?\"<br>Hoa: \"Cuộc sống chủ yếu xoay quanh việc làm nông và có nhịp điệu chậm rãi hơn.\"",
+                    reason: "Từ khóa câu hỏi yêu cầu mô tả 'pace of life' (nhịp sống) tại 'rural Vietnam' (nông thôn Việt Nam). Phương án C phản ánh chính xác đặc trưng làng quê truyền thống: gắn liền với đồng ruộng 'farming' và nhịp sống thanh bình, thư thả 'slower pace'.",
+                    wrongReason: "A mô tả nhịp sống hối hả áp lực deadlines của đô thị hiện đại; B lệch hướng sang hoạt động giải trí; D sai địa bàn vì đang nói về nông thôn chứ không phải thành thị."
+                }
+            },
+            {
+                id: 10, section: "Exercise 1: Option that best completes each of the following exchanges.",
+                question: "10. Henry: “Nhung, did most families have big televisions in your childhood?”<br>Nhung: “_______”",
+                options: [
+                    { text: "A. Yes, every house had a radio for entertainment.", isCorrect: false },
+                    { text: "B. No, we only had small black-and-white ones if any.", isCorrect: true },
+                    { text: "C. Of course, you can watch the channels you want.", isCorrect: false },
+                    { text: "D. No, most families watched movies at the cinema.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Henry: \"Nhung ơi, hồi nhỏ hầu hết các gia đình có tivi lớn không?\"<br>Nhung: \"Không đâu, ngày xưa nếu có thì cũng chỉ là tivi trắng đen nhỏ xíu thôi.\"",
+                    reason: "Câu hỏi dạng Yes/No hỏi về thực tế sở hữu thiết bị nghe nhìn 'big televisions' trong quá khứ tuổi thơ 'in your childhood'. Phương án phản hồi chân thực lịch sử và logic đời sống cũ là phủ định 'No' và làm rõ tính chất thời đó chỉ có tivi đen trắng loại nhỏ.",
+                    wrongReason: "A trả lời Yes nhưng từ ngữ lại nhảy sang cái đài (radio); C nói về tính năng chọn kênh hiện đại; D nói về rạp phim không ăn nhập thực tế tivi gia đình."
+                }
+            }
+        ];
+
+        // --- TỰ ĐỘNG ĐỔ DỮ LIỆU CARD LÊN GIAO DIỆN ---
+        const container = document.getElementById('quiz-container');
+        let currentSectionName = "";
+
+        function shuffleOptions(options) {
+            let shuffled = [...options];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        quizData.forEach((q, index) => {
+            if (q.section !== currentSectionName) {
+                currentSectionName = q.section;
+                const secTitle = document.createElement('div');
+                secTitle.className = 'section-title';
+                secTitle.innerText = currentSectionName;
+                container.appendChild(secTitle);
+            }
+
+            const card = document.createElement('div');
+            card.className = 'quiz-card';
+            card.id = `card-${q.id}`;
+
+            const shuffledOpts = shuffleOptions(q.options);
+            let optionsHtml = '';
+            shuffledOpts.forEach(opt => {
+                optionsHtml += `<button class="option-btn" data-correct="${opt.isCorrect}" onclick="selectOption(this, ${q.id})">${opt.text}</button>`;
+            });
+
+            card.innerHTML = `
+                <div class="question-text"><strong>Tình huống ${index + 1}:</strong><br>${q.question}</div>
+                <div class="options-container">${optionsHtml}</div>
+                <div class="explanation-box" id="exp-${q.id}">
+                    <div class="exp-section"><div class="exp-title">🌟 Dịch nghĩa đối thoại trọn vẹn:</div><div class="exp-text">${q.explanation.translation}</div></div>
+                    <div class="exp-section"><div class="exp-title">✅ Phân tích logic và phản xạ giao tiếp:</div><div class="exp-text exp-highlight">${q.explanation.reason}</div></div>
+                    <div class="exp-section"><div class="exp-title">❌ Tại sao các câu khác bị loại trừ?</div><div class="exp-text">${q.explanation.wrongReason}</div></div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        // --- ĐIỀU HƯỚNG BẤM CHỌN ĐÁP ÁN ---
+        function selectOption(btn, qId) {
+            const card = document.getElementById(`card-${qId}`);
+            if (card.getAttribute('data-answered') === 'true') return;
+
+            const buttons = card.querySelectorAll('.option-btn');
+            const isCorrect = btn.getAttribute('data-correct') === 'true';
+
+            buttons.forEach(b => {
+                b.classList.add('disabled');
+                if (b.getAttribute('data-correct') === 'true') {
+                    b.classList.add('correct');
+                }
+            });
+
+            if (isCorrect) {
+                btn.classList.add('correct');
+                playSound('correct');
+                createConfetti();
+            } else {
+                btn.classList.add('wrong');
+                card.classList.add('shake');
+                playSound('wrong');
+                setTimeout(() => card.classList.remove('shake'), 400);
+            }
+
+            document.getElementById(`exp-${qId}`).classList.add('active');
+            card.setAttribute('data-answered', 'true');
+            card.setAttribute('data-score', isCorrect ? '1' : '0');
+        }
+
+        // --- HỆ THỐNG TỔNG HỢP VÀ CHẤM ĐIỂM ---
+        function gradeEntireQuiz() {
+            let totalQuestions = quizData.length;
+            let correctCount = 0;
+            let unansweredCount = 0;
+
+            quizData.forEach(q => {
+                const card = document.getElementById(`card-${q.id}`);
+                const score = card.getAttribute('data-score');
+                if (score === '1') correctCount++;
+                if (!card.getAttribute('data-answered')) unansweredCount++;
+            });
+
+            const percentage = (correctCount / totalQuestions) * 100;
+            document.getElementById('score-text').innerText = `${correctCount}/${totalQuestions}`;
+
+            let comment = "";
+            if (percentage < 50) {
+                comment = "Điểm số phản xạ giao tiếp lần này chưa cao, con hãy xem lại thật kĩ phần phân tích tình huống ở mỗi câu sai và thử bấm luyện tập lại nhé! Cô tin con làm được! ❤️";
+            } else if (percentage <= 80) {
+                comment = "Kết quả khá tốt! Con đã hiểu cách đối đáp lịch sự và bám sát từ khóa hội thoại rồi. Hãy rà soát lại câu bị bôi đỏ để hoàn thiện phản xạ xuất sắc nhé! ✨";
+            } else {
+                comment = "Tuyệt vời! Phản xạ hội thoại tiếng Anh theo ngữ cảnh xã hội và tư duy loại trừ đáp án nhiễu của con cực kỳ nhạy bén và thông minh. Hãy giữ vững phong độ này nhé! 🎉🏆";
+            }
+
+            if (unansweredCount > 0) {
+                comment += `\n\n⚠️ (Lưu ý: Vẫn còn ${unansweredCount} tình huống con bị sót chưa bấm đưa ra đáp án kìa con yêu!)`;
+            }
+
+            document.getElementById('comment-text').innerText = comment;
+            document.getElementById('result-modal').style.display = 'flex';
+
+            if (percentage >= 70) {
+                createConfetti();
+                setTimeout(createConfetti, 300);
+            }
+        }
+
+        function closeResultModal() {
+            document.getElementById('result-modal').style.display = 'none';
+        }
+
+        function CollegeRandom(min, max) { return Math.random() * (max - min) + min; }
+
+        // --- HIỆU ỨNG PHÁO GIẤY CONFETTI CANVAS ---
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        let confettis = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function createConfetti() {
+            for (let i = 0; i < 40; i++) {
+                confettis.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    r: CollegeRandom(6, 12),
+                    d: Math.random() * canvas.height,
+                    color: `hsl(${Math.random() * 360}, 100%, 60%)`,
+                    tilt: CollegeRandom(-10, 10),
+                    tiltAngleIncremental: CollegeRandom(-0.04, 0.04),
+                    tiltAngle: 0
+                });
+            }
+        }
+
+        function drawConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            confettis.forEach((c, index) => {
+                c.tiltAngle += c.tiltAngleIncremental;
+                c.y += (Math.cos(c.d) + 3 + c.r / 2) / 2;
+                c.x += Math.sin(c.tiltAngle);
+                c.tilt = Math.sin(c.tiltAngle - index / 3) * 15;
+
+                if (c.y > canvas.height) {
+                    confettis.splice(index, 1);
+                    return;
+                }
+
+                ctx.beginPath();
+                ctx.lineWidth = c.r / 2;
+                ctx.strokeStyle = c.color;
+                ctx.moveTo(c.x + c.tilt + c.r / 2, c.y);
+                ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r / 2);
+                ctx.stroke();
+            });
+            requestAnimationFrame(drawConfetti);
+        }
+        drawConfetti();
+    </script>
+</body>
+</html>
